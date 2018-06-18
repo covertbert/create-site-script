@@ -55,6 +55,7 @@ create_nginx_config() {
 
 create_site_folder() {
     mkdir -p "/home/$USER/sites/$SITE_SLUG/html"
+    echo "<h1>Ready to go</h1>" > "/home/$USER/sites/$SITE_SLUG/html/index.html"
     echo "\\n ${RESET} Created site directory for $SITE_SLUG"
 }
 
