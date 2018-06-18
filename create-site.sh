@@ -42,14 +42,14 @@ create_nginx_config() {
             expires 7d;
         }
 
-        ssl_certificate /home/webadmin/letsencrypt/config/live/bertieblackman.co.uk/fullchain.pem;
-        ssl_certificate_key /home/webadmin/letsencrypt/config/live/bertieblackman.co.uk/privkey.pem;
+        ssl_certificate /home/$USER/letsencrypt/config/live/bertieblackman.co.uk/fullchain.pem;
+        ssl_certificate_key /home/$USER/letsencrypt/config/live/bertieblackman.co.uk/privkey.pem;
 
         if (\$scheme = http) {
             return 301 https://\$server_name\$request_uri;
         }
     }"
-    echo "$CONFIG_STRING" > "./test/${SITE_SLUG}.nginx"
+    echo "$CONFIG_STRING" > "/home/$USER/nginx/${SITE_SLUG}.nginx"
     echo "\\n ${RESET} Created NGINX file called $SITE_SLUG"
 }
 
@@ -60,10 +60,10 @@ create_site_folder() {
 }
 
 create_symbolic_links() {
-    sudo ln -s "/home/webadmin/nginx/$SITE_SLUG.nginx" "/etc/nginx/sites-enabled/$SITE_SLUG.nginx"
+    sudo ln -s "/home/$USER/nginx/$SITE_SLUG.nginx" "/etc/nginx/sites-enabled/$SITE_SLUG.nginx"
     echo "\\n ${RESET} Created symlink to sites_enabled for nginx file"
     
-    sudo ln -s "/home/webadmin/sites/$SITE_SLUG/html" "/var/www/html/$SITE_SLUG"
+    sudo ln -s "/home/$USER/sites/$SITE_SLUG/html" "/var/www/html/$SITE_SLUG"
     echo "\\n ${RESET} Created symlink to /var/www for site folder"
 }
 
