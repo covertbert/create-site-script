@@ -11,7 +11,7 @@ check_input_is_correct() {
     echo "You have chosen '$SITE_SLUG' as your slug. Are you sure this is correct?"
     select yn in "Yes" "No"; do
         case $yn in
-            Yes ) create_nginx_config; create_site_folder; break;;
+            Yes ) create_nginx_config; create_site_folder; create_symbolic_links; break;;
             No ) get_site_slug; break;;
         esac
     done
