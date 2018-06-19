@@ -1,18 +1,14 @@
 #!/bin/bash
 
-# Colors
-GREEN='\033[0;32m'
-RESET='\033[0m'
-
 # Functions
 get_site_slug() {
-    echo "${GREEN}Please enter the slug for the site you wish to create${RESET}"
+    echo "Please enter the slug for the site you wish to create"
     read -r SITE_SLUG
     check_input_is_correct
 }
 
 check_input_is_correct() {
-    echo "${GREEN}You have chosen '$SITE_SLUG' as your slug. Are you sure this is correct?${RESET}"
+    echo "You have chosen '$SITE_SLUG' as your slug. Are you sure this is correct?"
     select yn in "Yes" "No"; do
         case $yn in
             Yes ) create_nginx_config; create_site_folder; break;;
@@ -48,21 +44,21 @@ create_nginx_config() {
         }
     }"
     echo "$CONFIG_STRING" > "/home/$USER/nginx/${SITE_SLUG}.nginx"
-    echo "\\n ${RESET} Created NGINX file called $SITE_SLUG"
+    echo "\\n  Created NGINX file called $SITE_SLUG"
 }
 
 create_site_folder() {
     mkdir -p "/home/$USER/sites/$SITE_SLUG/html"
     echo "<h1>Ready to go</h1>" > "/home/$USER/sites/$SITE_SLUG/html/index.html"
-    echo "\\n ${RESET} Created site directory for $SITE_SLUG"
+    echo "\\n  Created site directory for $SITE_SLUG"
 }
 
 create_symbolic_links() {
     sudo ln -s "/home/$USER/nginx/$SITE_SLUG.nginx" "/etc/nginx/sites-enabled/$SITE_SLUG.nginx"
-    echo "\\n ${RESET} Created symlink to sites_enabled for nginx file"
+    echo "\\n  Created symlink to sites_enabled for nginx file"
     
     sudo ln -s "/home/$USER/sites/$SITE_SLUG/html" "/var/www/html/$SITE_SLUG"
-    echo "\\n ${RESET} Created symlink to /var/www for site folder"
+    echo "\\n  Created symlink to /var/www for site folder"
 }
 
 get_site_slug
