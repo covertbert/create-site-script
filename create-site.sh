@@ -44,21 +44,21 @@ create_nginx_config() {
         }
     }"
     echo "$CONFIG_STRING" > "/home/$USER/nginx/${SITE_SLUG}.nginx"
-    echo "\\n  Created NGINX file called $SITE_SLUG"
+    echo "Created NGINX file called $SITE_SLUG"
 }
 
 create_site_folder() {
     mkdir -p "/home/$USER/sites/$SITE_SLUG/html"
     echo "<h1>Ready to go</h1>" > "/home/$USER/sites/$SITE_SLUG/html/index.html"
-    echo "\\n  Created site directory for $SITE_SLUG"
+    echo "Created site directory for $SITE_SLUG"
 }
 
 create_symbolic_links() {
     sudo ln -s "/home/$USER/nginx/$SITE_SLUG.nginx" "/etc/nginx/sites-enabled/$SITE_SLUG.nginx"
-    echo "\\n  Created symlink to sites_enabled for nginx file"
+    echo "Created symlink to sites_enabled for nginx file"
     
     sudo ln -s "/home/$USER/sites/$SITE_SLUG/html" "/var/www/html/$SITE_SLUG"
-    echo "\\n  Created symlink to /var/www for site folder"
+    echo "Created symlink to /var/www for site folder"
 }
 
 get_site_slug
