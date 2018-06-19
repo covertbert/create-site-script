@@ -25,3 +25,5 @@ delete_target_site() {
 }
 
 check_if_site_exists
+
+sudo service nginx restart

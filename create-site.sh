@@ -50,6 +50,7 @@ create_site() {
     create_nginx_config
     create_site_folder
     create_symbolic_links
+    sudo service nginx restart
 }
 
 create_site
