@@ -3,7 +3,7 @@
 TARGET_SITE=$1
 
 check_if_site_exists() {
-    if [ ! -f /etc/nginx/sites-enabled/"$TARGET_SITE" ]; then
+    if [ ! -f /etc/nginx/sites-enabled/"$TARGET_SITE".nginx ]; then
         echo "Site not found!"
     else
         delete_target_site    
