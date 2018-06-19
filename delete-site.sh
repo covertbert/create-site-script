@@ -17,7 +17,7 @@ delete_target_site() {
     rm -rf "/home/$USER/sites/$TARGET_SITE"
     echo "Deleted site folder"
 
-    sudo rm -rf "/etc/nginx/sites_enabled/$TARGET_SITE.nginx"
+    sudo rm -rf "/etc/nginx/sites-enabled/$TARGET_SITE.nginx"
     echo "Deleted nginx sites_enabled symlink"
     
     sudo rm -rf "/var/www/html/$TARGET_SITE"
