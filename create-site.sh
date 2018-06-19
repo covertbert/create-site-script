@@ -12,15 +12,13 @@ get_site_slug() {
 }
 
 check_input_is_correct() {
-    echo "${GREEN}You have chosen '$SITE_SLUG' as your slug. Are you sure this is correct (y/n)?"
-    read -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        create_nginx_config
-        create_site_folder
-    else
-        get_site_slug
-    fi
+    echo "${GREEN}You have chosen '$SITE_SLUG' as your slug. Are you sure this is correct?${RESET}"
+    select yn in "Yes" "No"; do
+        case $yn in
+            Yes ) create_nginx_config; create_site_folder; break;;
+            No ) get_site_slug; break;;
+        esac
+    done
 }
 
 create_nginx_config() {
@@ -28,23 +26,23 @@ create_nginx_config() {
         listen 80;
         listen [::]:80;
         listen 443 ssl;
-
+        
         server_name $SITE_SLUG;
-
+        
         root /var/www/html/$SITE_SLUG;
-
+        
         location / {
             auth_basic \"Restricted Content\";
             auth_basic_user_file /etc/nginx/.htpasswd;
         }
-
+        
         location ~*  \.(jpg|jpeg|png|gif|ico|css|js|woff2)$ {
             expires 7d;
         }
-
+        
         ssl_certificate /home/$USER/letsencrypt/config/live/bertieblackman.co.uk/fullchain.pem;
         ssl_certificate_key /home/$USER/letsencrypt/config/live/bertieblackman.co.uk/privkey.pem;
-
+        
         if (\$scheme = http) {
             return 301 https://\$server_name\$request_uri;
         }
