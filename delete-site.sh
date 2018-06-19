@@ -11,13 +11,13 @@ check_if_site_exists() {
 }
 
 delete_target_site() {
+    rm -rf "/home/$USER/nginx/$TARGET_SITE.nginx"
+    echo "Deleted nginx file"
+    
     rm -rf "/home/$USER/sites/$TARGET_SITE"
     echo "Deleted site folder"
 
-    rm -rf "/home/$USER/nginx/$TARGET_SITE"
-    echo "Deleted nginx file"
-    
-    sudo rm -rf "/etc/nginx/sites_enabled/$TARGET_SITE"
+    sudo rm -rf "/etc/nginx/sites_enabled/$TARGET_SITE.nginx"
     echo "Deleted nginx sites_enabled symlink"
     
     sudo rm -rf "/var/www/html/$TARGET_SITE"
