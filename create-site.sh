@@ -1,21 +1,6 @@
 #!/bin/bash
 
-# Functions
-get_site_slug() {
-    echo "Please enter the slug for the site you wish to create"
-    read -r SITE_SLUG
-    check_input_is_correct
-}
-
-check_input_is_correct() {
-    echo "You have chosen '$SITE_SLUG' as your slug. Are you sure this is correct?"
-    select yn in "Yes" "No"; do
-        case $yn in
-            Yes ) create_nginx_config; create_site_folder; create_symbolic_links; break;;
-            No ) get_site_slug; break;;
-        esac
-    done
-}
+SITE_SLUG=$1
 
 create_nginx_config() {
     CONFIG_STRING="server {
@@ -61,4 +46,10 @@ create_symbolic_links() {
     echo "Created symlink to /var/www for site folder"
 }
 
-get_site_slug
+create_site() {
+    create_nginx_config
+    create_site_folder
+    create_symbolic_links
+}
+
+create_site
